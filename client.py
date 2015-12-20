@@ -15,6 +15,7 @@ from struct import pack, unpack
 from tornado.iostream import StreamClosedError
 import tornado.iostream
 import tornado.ioloop
+from config import Configure
 
 STOP = False
 THREADS = []
@@ -25,7 +26,7 @@ def init_log():
         level=logging.DEBUG,
         format='[%(asctime)s - %(process)-6d - %(threadName)-10s - %(levelname)-8s]\t%(message)s',
         datefmt='%a, %d %b %Y %H:%M:%S',
-        filename=os.path.join(ROOT, 'client.log'),
+        filename='client.log',
         filemode='w')
 
     sh = logging.StreamHandler()
@@ -40,16 +41,17 @@ def register_options():
 
     parser = OptionParser()
     parser.add_option("-i", "--host", dest="host",
-                      default="192.168.1.199", help="specify host, default is 192.168.1.199")
+                      default="192.168.1.199", help="specify host, default is 192.168.1.156")
     parser.add_option("-p", "--port", dest="port",
                       type="int",
-                      default=3050, help="specify port, default is 3050")
+                      default=0, help="specify port, default is 0")
     parser.add_option("-f", "--fun", dest="fun",
                       default=90001, help="specify function num, default is 90001")
     parser.add_option("-n", "--num", dest="num",
                       type="int",
                       default=1, help="specify threads num, default is 1")
-
+    parser.add_option('-b', '--boxid', dest='boxid', type='int',
+                      default='41', help='specify box id. default value 41')
     parser.add_option("-d", "--daemon", dest="daemon",
                       action='store_true',
                       default=True, help="set daemon process, default is true")
@@ -155,9 +157,9 @@ class Client(threading.Thread):
         header_str = ', '.join([str(x) for x in orig])
 
         if orig[2] != 11:
-            logging.info('send header: (%d : %s) to %s:%d' % (len(header), header_str,
+            logging.debug('send header: (%d : %s) to %s:%d' % (len(header), header_str,
                                                                self._address[0], self._address[1]))
-            logging.info('send body: (%d : %s) to %s:%d' % (len(body), body,
+            logging.debug('send body: (%d : %s) to %s:%d' % (len(body), body,
                                                              self._address[0], self._address[1]))
 
     def on_close(self):
@@ -180,7 +182,8 @@ if __name__ == '__main__':
         fun_num = [opts.fun]
 
     for i in xrange(opts.num):
-        client = Client(opts.host, opts.port)
+        fn = Configure(opts.fun).get_port()
+        client = Client(opts.host, fn)
         THREADS.append(client)
 
     for i in THREADS:
@@ -197,7 +200,9 @@ if __name__ == '__main__':
         try:
             header_str = conf.get("%s" % fn, "header").split(",")
             body = conf.get("%s" % fn, "body")
+            body = body.replace('**', str(opts.boxid))
             header = [int(x) for x in header_str]
+            print body
             THREADS[0].send(header, body)
         except Exception, e:
             logging.info(e)

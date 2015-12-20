@@ -1,5 +1,13 @@
 # appClient
 
+**************************   V2.0 
+1.端口根据功能号自动获取
+2.手动指定boxid号 
+
+注意：功能号需要在function.ini内先配置好
+      config.ini内的boxid用** 代替
+      没替代会使用conifg.ini的boxid不会用－b 指定的boxid
+
 
 """   配置文件格式说明
 更具功能号配置每个section

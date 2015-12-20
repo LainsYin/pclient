@@ -95,23 +95,8 @@ header = 17, 100, 10002, 65536, 0, 81
 body = <root><boxid>81</boxid></root>
 
 [10007]
-header = 17, 100, 10007, 65536, 0, 41
+header = 17, 100, 10007, 65536, 0, 6
 body = {"serialid": "20"}
-
-[10100]
-header = 17, 100, 10100, 65536, 0, 42
-body ={
-        "toboxids": [
-            41
-        ],
-        "message": "挑战你妹",
-        "type": 10002
-    }
- 
-[22001]
-header = 17, 100, 22001, 65536, 0, 1001
-body = {"appid": 1001}
-   
 
 ;close box
 [20001]
@@ -121,12 +106,14 @@ body = <root><boxid>6</boxid><room>0</room><keep>1</keep></root>
 ;close box 
 [20008]
 header = 17, 100, 20001, 65536, 0, 1001
-body = <root><boxid>**</boxid><room>0</room><keep>0</keep></root>
+body = <root><boxid>7</boxid><room>0</room><keep>0</keep></root>
 
 ;open box
 [20009]
 header = 17, 100, 20001, 65536, 0, 1001
-body = <root><boxid>**</boxid><room>1</room><keep>1</keep></root>
+body = <root><boxid>41</boxid><room>1</room><keep>1</keep></root>
+
+
 
 [30001]
 header = 17, 100, 30001, 65536, 0, 1001
