@@ -1,0 +1,8 @@
+[Sun, 20 Dec 2015 10:33:51 - 18514  - MainThread - INFO    ]	start 1 threads to server 192.168.1.199:25377 ...
+[Sun, 20 Dec 2015 10:33:51 - 18514  - MainThread - INFO    ]	new connection 1 to 192.168.1.199:25377
+[Sun, 20 Dec 2015 10:33:51 - 18514  - MainThread - INFO    ]	Waiting for 1 second
+[Sun, 20 Dec 2015 10:33:52 - 18514  - MainThread - INFO    ]	send header: (6 : 17, 100, 20001, 65536, 57, 1001) to 192.168.1.199:25377
+[Sun, 20 Dec 2015 10:33:52 - 18514  - MainThread - INFO    ]	send body: (57 : <root><boxid>6</boxid><room>1</room><keep>1</keep></root>) to 192.168.1.199:25377
+[Sun, 20 Dec 2015 10:33:52 - 18514  - MainThread - INFO    ]	read header : (17, 100, 20001, 65536, 51, 1001) 
+[Sun, 20 Dec 2015 10:33:52 - 18514  - MainThread - INFO    ]	read body : <root><status>1</status><confirm>1</confirm></root>
+[Sun, 20 Dec 2015 10:33:53 - 18514  - MainThread - INFO    ]	stop ...
