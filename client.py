@@ -176,10 +176,10 @@ if __name__ == '__main__':
     conf = ConfigParser.ConfigParser()
     config_path = ROOT + "/config.ini"
     conf.read(config_path)
-    try:
-        fun_num = [int(x) for x in opts.fun.split(",")]
-    except AttributeError:
-        fun_num = [opts.fun]
+    #try:
+    #    fun_num = [int(x) for x in opts.fun.split(",")]
+    #except AttributeError:
+    #    fun_num = [fun]
 
     for i in xrange(opts.num):
         fn = Configure(opts.fun).get_port()
@@ -196,17 +196,17 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, sig_handler)
     logging.info("Waiting for 1 second")
     time.sleep(1)
-    for fn in fun_num:
-        try:
-            header_str = conf.get("%s" % fn, "header").split(",")
-            body = conf.get("%s" % fn, "body")
-            body = body.replace('**', str(opts.boxid))
-            header = [int(x) for x in header_str]
-            print body
-            THREADS[0].send(header, body)
-        except Exception, e:
-            logging.info(e)
-            exit(1)
+
+    try:
+        header_str = conf.get("%s" % opts.fun, "header").split(",")
+        body = conf.get("%s" % opts.fun, "body")
+        body = body.replace('**', str(opts.boxid))
+        header = [int(x) for x in header_str]
+        print body
+        THREADS[0].send(header, body)
+    except Exception, e:
+        logging.info(e)
+        exit(1)
 
 # master thread to catch signal
 #     while not STOP:
